@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - TechCorp Innovations</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(37, 99, 235, 0.8)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fb6e5ada-5e0f-45f3-992c-98b5fb54b446.png') no-repeat center/cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Job Listings */
+        .jobs-section {
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .job-location {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .job-department {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .job-description {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .job-requirements {
+            margin-bottom: 1.5rem;
+        }
+
+        .requirements-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .requirements-list {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .requirements-list li {
+            margin-bottom: 0.3rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .requirements-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .apply-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .apply-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Application Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* No Jobs Message */
+        .no-jobs {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-jobs h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Admin Link */
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .admin-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="logo-icon">TC</div>
+                <div class="company-name">TechCorp Innovations</div>
+            </div>
+            <nav class="nav-links">
+                <a href="#jobs">Open Positions</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Join Our Innovative Team</h1>
+            <p>Explore exciting career opportunities and be part of a company that's shaping the future of technology.</p>
+        </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section id="jobs" class="jobs-section">
+        <div class="container">
+            <h2 class="section-title">Current Openings</h2>
+            
+            <div id="jobs-container" class="jobs-grid">
+                <!-- Jobs will be loaded here dynamically -->
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading job positions...</p>
+                </div>
+            </div>
+
+            <div id="no-jobs" class="no-jobs" style="display: none;">
+                <h3>No positions currently available</h3>
+                <p>Check back later for new opportunities!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Modal -->
+    <div id="application-modal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Apply for Position</h3>
+                <button class="close-modal" onclick="closeModal()">×</button>
+            </div>
+            <form id="application-form">
+                <input type="hidden" id="job-id" name="jobId">
+                
+                <div class="form-group">
+                    <label for="applicant-name">Full Name *</label>
+                    <input type="text" id="applicant-name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="applicant-email">Email Address *</label>
+                    <input type="email" id="applicant-email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="applicant-phone">Phone Number *</label>
+                    <input type="tel" id="applicant-phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="applicant-resume">Upload Resume (PDF, DOC, DOCX) *</label>
+                    <input type="file" id="applicant-resume" name="resume" accept=".pdf,.doc,.docx" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="applicant-cover">Cover Letter</label>
+                    <textarea id="applicant-cover" name="coverLetter" placeholder="Tell us why you're interested in this position..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About TechCorp</h3>
+                    <p>We're a leading technology company dedicated to innovation and excellence. Join us in shaping the future of digital transformation.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Email: careers@techcorp.com<br>
+                    Phone: (555) 123-4567<br>
+                    Address: 123 Innovation Drive, Tech City</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>LinkedIn | Twitter | Facebook</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 TechCorp Innovations. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Link -->
+    <a href="admin.html" class="admin-link">Admin Panel</a>
+
+    <script>
+        // Data Management Functions
+        function getJobs() {
+            const jobs = localStorage.getItem('jobs');
+            return jobs ? JSON.parse(jobs) : [];
+        }
+
+        function saveJobs(jobs) {
+            localStorage.setItem('jobs', JSON.stringify(jobs));
+        }
+
+        function getApplications() {
+            const applications = localStorage.getItem('applications');
+            return applications ? JSON.parse(applications) : [];
+        }
+
+        function saveApplications(applications) {
+            localStorage.setItem('applications', JSON.stringify(applications));
+        }
+
+        // Initialize Sample Data if none exists
+        function initializeSampleData() {
+            if (!localStorage.getItem('jobs')) {
+                const sampleJobs = [
+                    {
+                        id: 1,
+                        title: 'Senior Frontend Developer',
+                        location: 'Remote',
+                        department: 'Engineering',
+                        description: 'We are looking for an experienced Frontend Developer to join our growing team. You will be responsible for building the next generation of web applications.',
+                        requirements: ['5+ years of JavaScript experience', 'React expertise', 'TypeScript knowledge', 'Experience with modern CSS frameworks']
+                    },
+                    {
+                        id: 2,
+                        title: 'UX/UI Designer',
+                        location: 'New York, NY',
+                        department: 'Design',
+                        description: 'Join our design team to create beautiful and intuitive user experiences for our digital products.',
+                        requirements: ['3+ years of UX/UI design experience', 'Figma proficiency', 'Strong portfolio', 'Understanding of user research']
+                    },
+                    {
+                        id: 3,
+                        title: 'DevOps Engineer',
+                        location: 'San Francisco, CA',
+                        department: 'Operations',
+                        description: 'Help us build and maintain our cloud infrastructure and deployment pipelines.',
+                        requirements: ['AWS/GCP experience', 'Docker & Kubernetes', 'CI/CD pipelines', 'Infrastructure as Code']
+                    }
+                ];
+                saveJobs(sampleJobs);
+            }
+        }
+
+        // DOM Manipulation Functions
+        function renderJobs() {
+            const jobsContainer = document.getElementById('jobs-container');
+            const noJobsElement = document.getElementById('no-jobs');
+            const loadingElement = document.querySelector('.loading');
+            
+            loadingElement.style.display = 'none';
+            
+            const jobs = getJobs();
+            
+            if (jobs.length === 0) {
+                noJobsElement.style.display = 'block';
+                jobsContainer.innerHTML = '';
+                return;
+            }
+            
+            noJobsElement.style.display = 'none';
+            
+            const jobsHTML = jobs.map(job => `
+                <div class="job-card" data-job-id="${job.id}">
+                    <h3 class="job-title">${job.title}</h3>
+                    <div class="job-location">📍 ${job.location}</div>
+                    <div class="job-department">${job.department}</div>
+                    <p class="job-description">${job.description}</p>
+                    
+                    <div class="job-requirements">
+                        <h4 class="requirements-title">Requirements:</h4>
+                        <ul class="requirements-list">
+                            ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <button class="apply-btn" onclick="openApplicationModal(${job.id})">Apply Now</button>
+                </div>
+            `).join('');
+            
+            jobsContainer.innerHTML = jobsHTML;
+        }
+
+        // Modal Functions
+        function openApplicationModal(jobId) {
+            const modal = document.getElementById('application-modal');
+            const jobIdInput = document.getElementById('job-id');
+            const modalTitle = document.querySelector('.modal-title');
+            
+            const jobs = getJobs();
+            const job = jobs.find(j => j.id === jobId);
+            
+            if (job) {
+                modalTitle.textContent = `Apply for: ${job.title}`;
+                jobIdInput.value = jobId;
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('application-modal');
+            modal.style.display = 'none';
+            document.getElementById('application-form').reset();
+        }
+
+        // Toast Notification
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast';
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Form Handling
+        function handleApplicationSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const jobId = parseInt(formData.get('jobId'));
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            
+            if (!name || !email || !phone) {
+                showToast('Please fill in all required fields', true);
+                return;
+            }
+            
+            // In a real application, you would handle file uploads properly
+            // For this demo, we'll just store the file name
+            const resumeFile = document.getElementById('applicant-resume').files[0];
+            const resumeName = resumeFile ? resumeFile.name : 'No file uploaded';
+            
+            const application = {
+                id: Date.now(),
+                jobId: jobId,
+                name: name,
+                email: email,
+                phone: phone,
+                resume: resumeName,
+                coverLetter: formData.get('coverLetter') || '',
+                appliedAt: new Date().toISOString(),
+                status: 'Pending'
+            };
+            
+            const applications = getApplications();
+            applications.push(application);
+            saveApplications(applications);
+            
+            showToast('Application submitted successfully!');
+            closeModal();
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSampleData();
+            renderJobs();
+            
+            document.getElementById('application-form').addEventListener('submit', handleApplicationSubmit);
+            
+            // Close modal when clicking outside
+            document.getElementById('application-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+            
+            // Escape key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
