@@ -36,12 +36,17 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
+        /* Header Styles - Fixed Navigation */
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             padding: 1rem 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .nav-container {
@@ -74,7 +79,8 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -82,15 +88,72 @@
             text-decoration: none;
             font-weight: 500;
             transition: opacity 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-btn {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Add padding to body to account for fixed header */
+        body {
+            padding-top: 80px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 1rem;
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+        }
+
+        .no-results h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(37, 99, 235, 0.8)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fb6e5ada-5e0f-45f3-992c-98b5fb54b446.png') no-repeat center/cover;
+            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(37, 99, 235, 0.8)), url('https://placehold.co/1600x900') no-repeat center/cover;
             color: white;
             text-align: center;
             padding: 4rem 0;
@@ -145,9 +208,12 @@
             background: white;
             border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(253, 31, 31, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            position: relative; /* Added for positioning share button */
         }
 
         .job-card:hover {
@@ -182,10 +248,34 @@
             color: var(--dark);
             margin-bottom: 1rem;
             line-height: 1.6;
+            position: relative;
+            max-height: 4.8em; /* 3 lines */
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .job-description.expanded {
+            max-height: none;
+        }
+
+        .show-more-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            padding: 0;
+            display: block;
+        }
+
+        .show-more-btn:hover {
+            text-decoration: underline;
         }
 
         .job-requirements {
             margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
         .requirements-title {
@@ -197,6 +287,14 @@
         .requirements-list {
             list-style: none;
             padding-left: 1rem;
+            max-height: 6em; /* 3 lines */
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .requirements-list.expanded {
+            max-height: none;
         }
 
         .requirements-list li {
@@ -223,10 +321,112 @@
             cursor: pointer;
             transition: background 0.3s ease;
             width: 100%;
+            margin-top: auto; /* Pushes button to bottom */
         }
 
         .apply-btn:hover {
             background: var(--primary-dark);
+        }
+
+        /* Share Button */
+        .share-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .share-btn:hover {
+            background: #f0f0f0;
+            color: var(--primary);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+
+        .external-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .external-link:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item p {
+            color: var(--secondary);
         }
 
         /* Application Modal */
@@ -258,6 +458,12 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .modal-title {
@@ -390,6 +596,18 @@
                 width: 95%;
                 padding: 1.5rem;
             }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding-top: 70px;
+            }
+
+            header {
+                padding: 0.8rem 0;
+            }
         }
 
         /* Toast Notifications */
@@ -411,6 +629,7 @@
         .toast.show {
             opacity: 1;
             transform: translateY(0);
+            max-width: 90%;
         }
 
         .toast.error {
@@ -422,6 +641,7 @@
             display: none;
             text-align: center;
             padding: 2rem;
+            grid-column: 1 / -1;
         }
 
         .loading-spinner {
@@ -438,28 +658,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Admin Link */
-        .admin-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 1.2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .admin-link:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
     </style>
 </head>
 <body>
@@ -474,6 +672,7 @@
                 <a href="#jobs">Open Positions</a>
                 <a href="#about">About Us</a>
                 <a href="#contact">Contact</a>
+                <a href="admin.html" class="admin-btn">Admin Panel</a>
             </nav>
         </div>
     </header>
@@ -487,9 +686,20 @@
     </section>
 
     <!-- Jobs Section -->
+             <div class="container">
+
     <section id="jobs" class="jobs-section">
-        <div class="container">
             <h2 class="section-title">Current Openings</h2>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search jobs by title, location, or department...">
+            </div>
+            
+            <div id="no-results" class="no-results" style="display: none;">
+                <h3>No jobs found matching your search</h3>
+                <p>Try different keywords or browse all positions</p>
+            </div>
             
             <div id="jobs-container" class="jobs-grid">
                 <!-- Jobs will be loaded here dynamically -->
@@ -502,6 +712,42 @@
             <div id="no-jobs" class="no-jobs" style="display: none;">
                 <h3>No positions currently available</h3>
                 <p>Check back later for new opportunities!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2>About TechCorp Innovations</h2>
+                <p>TechCorp Innovations is a leading technology company dedicated to pushing the boundaries of innovation. We specialize in creating cutting-edge solutions that transform industries and improve lives. Our team of passionate professionals works together to deliver exceptional results for our clients worldwide.</p>
+                <p>Join us on our mission to shape the future of technology and make a meaningful impact in the digital landscape.</p>
+                <a href="https://www.pitti.in/" class="external-link" target="_blank">Learn More About Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Contact Us</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p>careers@techcorp.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Phone</h3>
+                        <p>(555) 123-4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Address</h3>
+                        <p>123 Innovation Drive<br>Tech City, TC 12345</p>
+                    </div>
+                </div>
+                <p>We'd love to hear from you. Reach out to us for any questions about career opportunities or our company.</p>
             </div>
         </div>
     </section>
@@ -577,9 +823,6 @@
         </div>
     </footer>
 
-    <!-- Admin Link -->
-    <a href="admin.html" class="admin-link">Admin Panel</a>
-
     <script>
         // Data Management Functions
         function getJobs() {
@@ -609,67 +852,131 @@
                         title: 'Senior Frontend Developer',
                         location: 'Remote',
                         department: 'Engineering',
-                        description: 'We are looking for an experienced Frontend Developer to join our growing team. You will be responsible for building the next generation of web applications.',
-                        requirements: ['5+ years of JavaScript experience', 'React expertise', 'TypeScript knowledge', 'Experience with modern CSS frameworks']
+                        description: 'We are looking for an experienced Frontend Developer to join our growing team. You will be responsible for building the next generation of web applications. You will work with modern technologies like React, Vue.js, and TypeScript to create responsive and user-friendly interfaces. This role requires strong problem-solving skills and the ability to work in a fast-paced environment.',
+                        requirements: ['5+ years of JavaScript experience', 'React expertise', 'TypeScript knowledge', 'Experience with modern CSS frameworks', 'Understanding of REST APIs', 'Experience with version control systems', 'Strong problem-solving skills']
                     },
                     {
                         id: 2,
                         title: 'UX/UI Designer',
                         location: 'New York, NY',
                         department: 'Design',
-                        description: 'Join our design team to create beautiful and intuitive user experiences for our digital products.',
-                        requirements: ['3+ years of UX/UI design experience', 'Figma proficiency', 'Strong portfolio', 'Understanding of user research']
+                        description: 'Join our design team to create beautiful and intuitive user experiences for our digital products. You will collaborate with product managers and developers to design interfaces that are both functional and visually appealing. The ideal candidate has a strong portfolio and experience with user research methodologies.',
+                        requirements: ['3+ years of UX/UI design experience', 'Figma proficiency', 'Strong portfolio', 'Understanding of user research', 'Experience with design systems', 'Knowledge of accessibility standards', 'Collaboration skills']
                     },
                     {
                         id: 3,
                         title: 'DevOps Engineer',
                         location: 'San Francisco, CA',
                         department: 'Operations',
-                        description: 'Help us build and maintain our cloud infrastructure and deployment pipelines.',
-                        requirements: ['AWS/GCP experience', 'Docker & Kubernetes', 'CI/CD pipelines', 'Infrastructure as Code']
+                        description: 'Help us build and maintain our cloud infrastructure and deployment pipelines. You will work with technologies like AWS, Docker, Kubernetes, and Terraform to ensure our systems are scalable and reliable. This role requires experience with CI/CD pipelines and infrastructure as code.',
+                        requirements: ['AWS/GCP experience', 'Docker & Kubernetes', 'CI/CD pipelines', 'Infrastructure as Code', 'Monitoring and logging tools', 'Scripting skills', 'Cloud security best practices']
                     }
                 ];
                 saveJobs(sampleJobs);
             }
         }
 
+        // Search Functionality
+        function filterJobs(searchTerm) {
+            const jobs = getJobs();
+            const searchLower = searchTerm.toLowerCase().trim();
+            
+            if (!searchLower) {
+                return jobs;
+            }
+            
+            return jobs.filter(job => 
+                job.title.toLowerCase().includes(searchLower) ||
+                job.location.toLowerCase().includes(searchLower) ||
+                job.department.toLowerCase().includes(searchLower)
+            );
+        }
+
+        function handleSearch() {
+            const searchTerm = document.getElementById('search-input').value;
+            const filteredJobs = filterJobs(searchTerm);
+            renderJobs(filteredJobs);
+        }
+
         // DOM Manipulation Functions
-        function renderJobs() {
+        function renderJobs(jobs = null) {
+            const jobsToRender = jobs || getJobs();
             const jobsContainer = document.getElementById('jobs-container');
             const noJobsElement = document.getElementById('no-jobs');
+            const noResultsElement = document.getElementById('no-results');
             const loadingElement = document.querySelector('.loading');
             
             loadingElement.style.display = 'none';
             
-            const jobs = getJobs();
-            
-            if (jobs.length === 0) {
-                noJobsElement.style.display = 'block';
+            if (jobsToRender.length === 0) {
+                if (jobs && jobs.length === 0 && document.getElementById('search-input').value) {
+                    noResultsElement.style.display = 'block';
+                    noJobsElement.style.display = 'none';
+                } else {
+                    noJobsElement.style.display = 'block';
+                    noResultsElement.style.display = 'none';
+                }
                 jobsContainer.innerHTML = '';
                 return;
             }
             
             noJobsElement.style.display = 'none';
+            noResultsElement.style.display = 'none';
             
-            const jobsHTML = jobs.map(job => `
-                <div class="job-card" data-job-id="${job.id}">
-                    <h3 class="job-title">${job.title}</h3>
-                    <div class="job-location">📍 ${job.location}</div>
-                    <div class="job-department">${job.department}</div>
-                    <p class="job-description">${job.description}</p>
-                    
-                    <div class="job-requirements">
-                        <h4 class="requirements-title">Requirements:</h4>
-                        <ul class="requirements-list">
-                            ${job.requirements.map(req => `<li>${req}</li>`).join('')}
-                        </ul>
+            const jobsHTML = jobsToRender.map(job => {
+                const shouldTruncateDesc = job.description.length > 200;
+                const shouldTruncateReqs = job.requirements.length > 3;
+                
+                return `
+                    <div class="job-card" data-job-id="${job.id}">
+                        <button class="share-btn" onclick="shareJob(${job.id})" title="Share this job">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2">
+                                <circle cx="18" cy="5" r="3"></circle>
+                                <circle cx="6" cy="12" r="3"></circle>
+                                <circle cx="18" cy="19" r="3"></circle>
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                            </svg>
+                        </button>
+                        <h3 class="job-title">${job.title}</h3>
+                        <div class="job-location">📍 ${job.location}</div>
+                        <div class="job-department">${job.department}</div>
+                        
+                        <div class="job-description ${shouldTruncateDesc ? '' : 'expanded'}">
+                            ${job.description}
+                            ${shouldTruncateDesc ? `
+                                <button class="show-more-btn" onclick="toggleDescription(this)">Show more</button>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="job-requirements">
+                            <h4 class="requirements-title">Requirements:</h4>
+                            <ul class="requirements-list ${shouldTruncateReqs ? '' : 'expanded'}">
+                                ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+                            </ul>
+                            ${shouldTruncateReqs ? `
+                                <button class="show-more-btn" onclick="toggleRequirements(this)">Show more</button>
+                            ` : ''}
+                        </div>
+                        
+                        <button class="apply-btn" onclick="openApplicationModal(${job.id})">Apply Now</button>
                     </div>
-                    
-                    <button class="apply-btn" onclick="openApplicationModal(${job.id})">Apply Now</button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
             
             jobsContainer.innerHTML = jobsHTML;
+        }
+
+        function toggleDescription(button) {
+            const description = button.parentElement;
+            description.classList.toggle('expanded');
+            button.textContent = description.classList.contains('expanded') ? 'Show less' : 'Show more';
+        }
+
+        function toggleRequirements(button) {
+            const requirementsList = button.previousElementSibling;
+            requirementsList.classList.toggle('expanded');
+            button.textContent = requirementsList.classList.contains('expanded') ? 'Show less' : 'Show more';
         }
 
         // Modal Functions
@@ -706,6 +1013,23 @@
             }, 3000);
         }
 
+        // New Share Job Function
+        async function shareJob(jobId) {
+            const jobs = getJobs();
+            const job = jobs.find(j => j.id === jobId);
+
+            if (job) {
+                const shareText = `Check out this job at TechCorp Innovations: ${job.title} - ${job.location}\n\n${window.location.href}`;
+                try {
+                    await navigator.clipboard.writeText(shareText);
+                    showToast('Job details copied to clipboard!');
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                    showToast('Failed to copy job details.', true);
+                }
+            }
+        }
+
         // Form Handling
         function handleApplicationSubmit(event) {
             event.preventDefault();
@@ -721,8 +1045,6 @@
                 return;
             }
             
-            // In a real application, you would handle file uploads properly
-            // For this demo, we'll just store the file name
             const resumeFile = document.getElementById('applicant-resume').files[0];
             const resumeName = resumeFile ? resumeFile.name : 'No file uploaded';
             
@@ -752,6 +1074,7 @@
             renderJobs();
             
             document.getElementById('application-form').addEventListener('submit', handleApplicationSubmit);
+            document.getElementById('search-input').addEventListener('input', handleSearch);
             
             // Close modal when clicking outside
             document.getElementById('application-modal').addEventListener('click', function(e) {
@@ -766,8 +1089,21 @@
                     closeModal();
                 }
             });
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
 </html>
-
