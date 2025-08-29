@@ -53,6 +53,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative; /* Added for mobile menu positioning */
         }
 
         .logo {
@@ -575,6 +576,16 @@
         }
 
         /* Responsive Design */
+        .menu-toggle {
+            display: none; /* Hidden by default */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2rem;
@@ -585,7 +596,38 @@
             }
 
             .nav-links {
-                display: none;
+                display: none; /* Hidden by default on mobile */
+                flex-direction: column;
+                position: absolute;
+                top: 100%; /* Position below the header */
+                left: 0;
+                width: 100%;
+                background: var(--primary-dark);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                padding: 1rem 0;
+                border-radius: 0 0 8px 8px;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .nav-links.active {
+                display: flex; /* Show when active */
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 0.8rem 20px; /* Add horizontal padding */
+                text-align: left;
+            }
+
+            .admin-btn {
+                width: calc(100% - 40px); /* Adjust width for padding */
+                margin: 0 20px; /* Center with padding */
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block; /* Show hamburger icon on mobile */
             }
 
             .jobs-grid {
@@ -668,7 +710,10 @@
                 <div class="logo-icon">TC</div>
                 <div class="company-name">TechCorp Innovations</div>
             </div>
-            <nav class="nav-links">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                &#9776; <!-- Hamburger icon -->
+            </button>
+            <nav class="nav-links" id="nav-links">
                 <a href="#jobs">Open Positions</a>
                 <a href="#about">About Us</a>
                 <a href="#contact">Contact</a>
@@ -721,8 +766,9 @@
         <div class="container">
             <div class="about-content">
                 <h2>About TechCorp Innovations</h2>
-                <p>TechCorp Innovations is a leading technology company dedicated to pushing the boundaries of innovation. We specialize in creating cutting-edge solutions that transform industries and improve lives. Our team of passionate professionals works together to deliver exceptional results for our clients worldwide.</p>
-                <p>Join us on our mission to shape the future of technology and make a meaningful impact in the digital landscape.</p>
+                <p>With a legacy spanning over four decades, we are a trusted leader in the manufacturing of precision-engineered components for rotating electrical equipment. Established in 1983, we began our journey specializing in electrical steel laminations for motors used across a diverse range of electrical applications. Today, we have evolved into a comprehensive solutions provider, offering a wide portfolio that includes.</p>
+                <p>Our unwavering commitment to quality, innovation, and customer satisfaction has positioned us as the market leader in the lamination segment—a critical component in the performance and efficiency of electric motors and generators.</p>
+                <p>Driven by engineering excellence and a deep understanding of industry requirements, we continue to power progress in the electrical manufacturing sector, supporting a wide spectrum of industries worldwide.    </p>
                 <a href="https://www.pitti.in/" class="external-link" target="_blank">Learn More About Our Work</a>
             </div>
         </div>
@@ -1101,7 +1147,20 @@
                             block: 'start'
                         });
                     }
+                    // Close mobile menu after clicking a link
+                    const navLinks = document.getElementById('nav-links');
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
                 });
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
             });
         });
     </script>
