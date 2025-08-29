@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - TechCorp Careers</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TechCorp Admin Panel</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
@@ -24,6 +21,13 @@
             --admin-bg: #f8fafc;
             --sidebar-bg: #1e293b;
             --sidebar-hover: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -126,6 +130,7 @@
             top: 0;
             left: 0;
             padding: 1rem;
+            z-index: 100;
         }
 
         .sidebar-header {
@@ -227,6 +232,44 @@
             background: #d97706;
         }
 
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #16a34a;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            max-width: 400px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+        }
+
         /* Jobs Management */
         .jobs-table {
             background: white;
@@ -241,7 +284,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #e2e8f0;
@@ -364,6 +408,21 @@
             margin-top: 0.5rem;
         }
 
+        /* Added Posting Date input style (inherits from input) */
+        #job-date {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        #job-date:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
         /* Applications View */
         .applications-grid {
             display: grid;
@@ -403,22 +462,24 @@
             margin-bottom: 1rem;
         }
 
+        /* === UPDATED: Application Status Styles === */
         .application-status {
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
+            user-select: none;
         }
 
         .status-pending {
-            background: #fef3c7;
-            color: #92400e;
+            background: #fef3c7; /* light yellow */
+            color: #92400e;      /* dark yellow/brown */
         }
 
         .status-complete {
-            background: #dcfce7;
-            color: #166534;
+            background: #dcfce7; /* light green */
+            color: #166534;      /* dark green */
         }
 
         .application-details {
@@ -440,6 +501,58 @@
             margin-top: 1rem;
             display: flex;
             gap: 0.5rem;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .stat-icon-blue {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .stat-icon-green {
+            background: #dcfce7;
+            color: var(--success);
+        }
+
+        .stat-icon-purple {
+            background: #ede9fe;
+            color: var(--warning);
+        }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-content p {
+            color: var(--secondary);
         }
 
         /* Toast Notifications */
@@ -473,17 +586,27 @@
                 height: auto;
                 position: relative;
             }
-            
+
             .main-content {
                 margin-left: 0;
             }
-            
+
             .applications-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .action-buttons {
                 flex-direction: column;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -503,8 +626,24 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
         }
     </style>
 </head>
@@ -516,14 +655,26 @@
             <form id="login-form">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required placeholder="Enter admin username">
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        required
+                        placeholder="Enter admin username"
+                    />
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter admin password">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                        placeholder="Enter admin password"
+                    />
                 </div>
-                
+
                 <button type="submit" class="login-btn">Login</button>
                 <a href="index.html" class="back-to-home">← Back to Home Page</a>
             </form>
@@ -538,10 +689,14 @@
                 <h3 class="sidebar-title">TechCorp Admin</h3>
                 <p class="sidebar-subtitle">Job Portal Management</p>
             </div>
-            
+
             <ul class="nav-links">
-                <li><a href="#jobs" class="active" onclick="showSection('jobs')">📋 Job Postings</a></li>
-                <li><a href="#applications" onclick="showSection('applications')">📄 Applications</a></li>
+                <li>
+                    <a href="#" class="active" onclick="showSection('dashboard')"
+                        >📊 Dashboard</a
+                    >
+                </li>                <li><a href="#" onclick="showSection('jobs')">💼 Jobs</a></li>
+                <li><a href="#" onclick="showSection('applications')">📄 Applications</a></li>
                 <li><a href="index.html">🏠 Back to Home</a></li>
                 <li><a href="#" onclick="logout()">🚪 Logout</a></li>
             </ul>
@@ -549,11 +704,77 @@
 
         <!-- Main Content -->
         <div class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="dashboard-section active">
+                <div class="content-header">
+                    <h2 class="page-title">Admin Dashboard</h2>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-blue">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-jobs">0</h3>
+                            <p>Total Jobs</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-green">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-applications">0</h3>
+                            <p>Applications</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-purple">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="pending-applications">0</h3>
+                            <p>Pending Applications</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="jobs-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Recent Jobs</th>
+                                <th>Department</th>
+                                <th>Location</th>
+                                <th>Posting Date</th>
+                                <th>Applications</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-jobs-table">
+                            <!-- Recent jobs will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- Jobs Section -->
-            <div id="jobs-section" class="content-section">
+            <div id="jobs-section" class="dashboard-section">
                 <div class="content-header">
                     <h2 class="page-title">Job Postings Management</h2>
                     <button class="btn btn-primary" onclick="openJobModal()">Add New Job</button>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search jobs by title, department, or location..."
+                    />
                 </div>
 
                 <div class="jobs-table">
@@ -563,6 +784,7 @@
                                 <th>Title</th>
                                 <th>Location</th>
                                 <th>Department</th>
+                                <th>Posting Date</th>
                                 <th>Requirements</th>
                                 <th>Actions</th>
                             </tr>
@@ -580,7 +802,7 @@
             </div>
 
             <!-- Applications Section -->
-            <div id="applications-section" class="content-section" style="display: none;">
+            <div id="applications-section" class="dashboard-section">
                 <div class="content-header">
                     <h2 class="page-title">Applications Review</h2>
                 </div>
@@ -604,40 +826,64 @@
                 <button class="close-modal" onclick="closeJobModal()">×</button>
             </div>
             <form id="job-form">
-                <input type="hidden" id="job-id" name="id">
-                
+                <input type="hidden" id="job-id" name="id" />
+
                 <div class="form-group">
                     <label for="job-title">Job Title *</label>
-                    <input type="text" id="job-title" name="title" required>
+                    <input type="text" id="job-title" name="title" required />
                 </div>
-                
+
                 <div class="form-group">
                     <label for="job-location">Location *</label>
-                    <input type="text" id="job-location" name="location" required>
+                    <input type="text" id="job-location" name="location" required />
                 </div>
-                
+
                 <div class="form-group">
                     <label for="job-department">Department *</label>
-                    <input type="text" id="job-department" name="department" required>
+                    <input type="text" id="job-department" name="department" required />
                 </div>
-                
+
+                <div class="form-group">
+                    <label for="job-type">Job Type *</label>
+                    <select id="job-type" name="type" class="form-control" required>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Remote">Remote</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="job-description">Description *</label>
                     <textarea id="job-description" name="description" required></textarea>
                 </div>
-                
+
+                <!-- Posting Date Field -->
+                <div class="form-group">
+                    <label for="job-date">Posting Date *</label>
+                    <input type="date" id="job-date" name="date" required />
+                </div>
+
                 <div class="form-group">
                     <label>Requirements *</label>
                     <div id="requirements-container">
                         <!-- Requirements will be added here -->
                     </div>
                     <div class="requirements-input">
-                        <input type="text" id="new-requirement" placeholder="Add a requirement">
-                        <button type="button" class="add-requirement-btn" onclick="addRequirement()">Add Requirement</button>
+                        <input type="text" id="new-requirement" placeholder="Add a requirement" />
+                        <button
+                            type="button"
+                            class="add-requirement-btn"
+                            onclick="addRequirement()"
+                        >
+                            Add Requirement
+                        </button>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Job</button>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%">
+                    Save Job
+                </button>
             </form>
         </div>
     </div>
@@ -669,22 +915,23 @@
         // Login Function
         function handleLogin(event) {
             event.preventDefault();
-            
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
+
             if (username === 'admin' && password === 'admin123') {
                 // Clear the form
                 document.getElementById('login-form').reset();
-                
+
                 // Show admin dashboard
                 document.getElementById('login-page').style.display = 'none';
                 document.getElementById('admin-dashboard').style.display = 'block';
-                
+
                 // Load data
+                loadDashboard();
                 loadJobs();
                 loadApplications();
-                
+
                 showToast('Login successful!');
             } else {
                 showToast('Invalid username or password', true);
@@ -699,16 +946,80 @@
 
         // Navigation Functions
         function showSection(section) {
-            document.querySelectorAll('.content-section').forEach(sec => {
-                sec.style.display = 'none';
+            document.querySelectorAll('.dashboard-section').forEach((sec) => {
+                sec.classList.remove('active');
             });
-            
-            document.querySelectorAll('.nav-links a').forEach(link => {
+
+            document.querySelectorAll('.nav-links a').forEach((link) => {
                 link.classList.remove('active');
             });
-            
-            document.getElementById(section + '-section').style.display = 'block';
-            document.querySelector(`a[href="#${section}"]`).classList.add('active');
+
+            document.getElementById(section + '-section').classList.add('active');
+            document.querySelector(`.nav-links a[onclick="showSection('${section}')"]`).classList.add('active');
+
+            if (section === 'dashboard') {
+                loadDashboard();
+            }
+        }
+
+        // Dashboard Functions
+        function loadDashboard() {
+            const jobs = getJobs();
+            const applications = getApplications();
+
+            document.getElementById('total-jobs').textContent = jobs.length;
+            document.getElementById('total-applications').textContent = applications.length;
+
+            const pendingApps = applications.filter((app) => app.status === 'Pending').length;
+            document.getElementById('pending-applications').textContent = pendingApps;
+
+            const recentJobsTable = document.getElementById('recent-jobs-table');
+            if (jobs.length === 0) {
+                recentJobsTable.innerHTML = '<tr><td colspan="5">No jobs posted yet</td></tr>';
+                return;
+            }
+
+            const recentJobs = jobs.slice(-5);
+            const jobsHTML = recentJobs
+                .map((job) => {
+                    const jobApps = applications.filter((app) => app.jobId === job.id).length;
+                    return `
+                    <tr>
+                        <td>${job.title}</td>
+                        <td>${job.department}</td>
+                        <td>${job.location}</td>
+                        <td>${job.date || ''}</td>
+                        <td>${jobApps} applications</td>
+                    </tr>
+                `;
+                })
+                .join('');
+
+            recentJobsTable.innerHTML = jobsHTML;
+        }
+
+        // Search Functionality
+        function handleSearch() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            const jobRows = document.querySelectorAll('#jobs-table-body tr');
+
+            jobRows.forEach((row) => {
+                const title = row.cells[0].textContent.toLowerCase();
+                const location = row.cells[1].textContent.toLowerCase();
+                const department = row.cells[2].textContent.toLowerCase();
+
+                if (searchTerm === '') {
+                    row.classList.remove('hidden');
+                } else if (
+                    title.includes(searchTerm) ||
+                    location.includes(searchTerm) ||
+                    department.includes(searchTerm)
+                ) {
+                    row.classList.remove('hidden');
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
         }
 
         // Job Management Functions
@@ -716,20 +1027,23 @@
             const jobs = getJobs();
             const tableBody = document.getElementById('jobs-table-body');
             const noJobsElement = document.getElementById('no-jobs');
-            
+
             if (jobs.length === 0) {
                 tableBody.innerHTML = '';
                 noJobsElement.style.display = 'block';
                 return;
             }
-            
+
             noJobsElement.style.display = 'none';
-            
-            const jobsHTML = jobs.map(job => `
+
+            const jobsHTML = jobs
+                .map(
+                    (job) => `
                 <tr>
                     <td>${job.title}</td>
                     <td>${job.location}</td>
                     <td>${job.department}</td>
+                    <td>${job.date || ''}</td>
                     <td>${job.requirements.length} requirements</td>
                     <td>
                         <div class="action-buttons">
@@ -738,9 +1052,13 @@
                         </div>
                     </td>
                 </tr>
-            `).join('');
-            
+            `
+                )
+                .join('');
+
             tableBody.innerHTML = jobsHTML;
+
+            document.getElementById('search-input').addEventListener('input', handleSearch);
         }
 
         function openJobModal(jobId = null) {
@@ -748,31 +1066,36 @@
             const modalTitle = document.getElementById('modal-title');
             const form = document.getElementById('job-form');
             const requirementsContainer = document.getElementById('requirements-container');
-            
+
             requirementsContainer.innerHTML = '';
             form.reset();
-            
+
             if (jobId) {
                 const jobs = getJobs();
-                const job = jobs.find(j => j.id === jobId);
-                
+                const job = jobs.find((j) => j.id === jobId);
+
                 if (job) {
                     modalTitle.textContent = 'Edit Job';
                     document.getElementById('job-id').value = job.id;
                     document.getElementById('job-title').value = job.title;
                     document.getElementById('job-location').value = job.location;
                     document.getElementById('job-department').value = job.department;
+                    document.getElementById('job-type').value = job.type || 'Full-time';
                     document.getElementById('job-description').value = job.description;
-                    
-                    job.requirements.forEach(req => {
+                    document.getElementById('job-date').value = job.date || '';
+
+                    job.requirements.forEach((req) => {
                         addRequirementToContainer(req);
                     });
                 }
             } else {
                 modalTitle.textContent = 'Add New Job';
                 document.getElementById('job-id').value = '';
+                document.getElementById('job-type').value = 'Full-time';
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('job-date').value = today;
             }
-            
+
             modal.style.display = 'flex';
         }
 
@@ -783,7 +1106,7 @@
         function addRequirement() {
             const input = document.getElementById('new-requirement');
             const requirement = input.value.trim();
-            
+
             if (requirement) {
                 addRequirementToContainer(requirement);
                 input.value = '';
@@ -803,54 +1126,58 @@
 
         function saveJob(event) {
             event.preventDefault();
-            
+
             const jobs = getJobs();
             const formData = new FormData(event.target);
             const jobId = formData.get('id');
             const title = formData.get('title');
             const location = formData.get('location');
             const department = formData.get('department');
+            const type = formData.get('type');
             const description = formData.get('description');
-            
-            // Get requirements from the container
+            const date = formData.get('date');
+
             const requirements = [];
-            document.querySelectorAll('.requirement-item').forEach(item => {
+            document.querySelectorAll('.requirement-item').forEach((item) => {
                 requirements.push(item.textContent.replace('×', '').trim());
             });
-            
-            if (!title || !location || !department || !description || requirements.length === 0) {
+
+            if (!title || !location || !department || !description || requirements.length === 0 || !date) {
                 showToast('Please fill in all fields', true);
                 return;
             }
-            
+
             if (jobId) {
-                // Edit existing job
-                const index = jobs.findIndex(j => j.id === parseInt(jobId));
+                const index = jobs.findIndex((j) => j.id === parseInt(jobId));
                 if (index !== -1) {
                     jobs[index] = {
                         ...jobs[index],
                         title,
                         location,
                         department,
+                        type,
                         description,
-                        requirements
+                        requirements,
+                        date,
                     };
                 }
             } else {
-                // Add new job
                 const newJob = {
                     id: Date.now(),
                     title,
                     location,
                     department,
+                    type,
                     description,
-                    requirements
+                    requirements,
+                    date,
                 };
                 jobs.push(newJob);
             }
-            
+
             saveJobs(jobs);
             loadJobs();
+            loadDashboard();
             closeJobModal();
             showToast(jobId ? 'Job updated successfully!' : 'Job added successfully!');
         }
@@ -862,9 +1189,10 @@
         function deleteJob(jobId) {
             if (confirm('Are you sure you want to delete this job?')) {
                 const jobs = getJobs();
-                const updatedJobs = jobs.filter(job => job.id !== jobId);
+                const updatedJobs = jobs.filter((job) => job.id !== jobId);
                 saveJobs(updatedJobs);
                 loadJobs();
+                loadDashboard();
                 showToast('Job deleted successfully!');
             }
         }
@@ -875,20 +1203,21 @@
             const jobs = getJobs();
             const container = document.getElementById('applications-container');
             const noAppsElement = document.getElementById('no-applications');
-            
+
             if (applications.length === 0) {
                 container.innerHTML = '';
                 noAppsElement.style.display = 'block';
                 return;
             }
-            
+
             noAppsElement.style.display = 'none';
-            
-            const appsHTML = applications.map(app => {
-                const job = jobs.find(j => j.id === app.jobId);
-                const jobTitle = job ? job.title : 'Unknown Position';
-                
-                return `
+
+            const appsHTML = applications
+                .map((app) => {
+                    const job = jobs.find((j) => j.id === app.jobId);
+                    const jobTitle = job ? job.title : 'Unknown Position';
+
+                    return `
                     <div class="application-card">
                         <div class="application-header">
                             <div>
@@ -898,45 +1227,53 @@
                                     Email: ${app.email} • Phone: ${app.phone}
                                 </div>
                             </div>
-                            <span class="application-status ${app.status === 'Complete' ? 'status-complete' : 'status-pending'}" 
-                                  onclick="toggleApplicationStatus(${app.id})">
+                            <span class="application-status ${app.status === 'Completed' ? 'status-complete' : 'status-pending'}" 
+                                  onclick="toggleApplicationStatus(${app.id})" title="Click to toggle status">
                                 ${app.status}
                             </span>
                         </div>
-                        
+
                         <div class="application-details">
                             <div class="detail-item">
                                 <span class="detail-label">Resume:</span> ${app.resume}
                             </div>
-                            ${app.coverLetter ? `
+                            ${
+                                app.coverLetter
+                                    ? `
                             <div class="detail-item">
                                 <span class="detail-label">Cover Letter:</span>
                                 <p>${app.coverLetter}</p>
                             </div>
-                            ` : ''}
+                            `
+                                    : ''
+                            }
                             <div class="detail-item">
-                                <span class="detail-label">Applied:</span> ${new Date(app.appliedAt).toLocaleDateString()}
+                                <span class="detail-label">Applied:</span> ${new Date(
+                                    app.appliedAt
+                                ).toLocaleDateString()}
                             </div>
                         </div>
-                        
+
                         <div class="application-actions">
                             <button class="btn btn-danger" onclick="deleteApplication(${app.id})">Delete</button>
                         </div>
                     </div>
                 `;
-            }).join('');
-            
+                })
+                .join('');
+
             container.innerHTML = appsHTML;
         }
 
-        function toggleApplicationStatus(appId) {
-            const applications = getApplications();
-            const appIndex = applications.findIndex(app => app.id === appId);
-            
+       function toggleApplicationStatus(appId) {
+    const applications = getApplications();
+            const appIndex = applications.findIndex((app) => app.id === appId);
+
             if (appIndex !== -1) {
-                applications[appIndex].status = applications[appIndex].status === 'Pending' ? 'Complete' : 'Pending';
+                applications[appIndex].status = applications[appIndex].status === 'Pending' ? 'Completed' : 'Pending';
                 saveApplications(applications);
                 loadApplications();
+                loadDashboard();
                 showToast('Application status updated!');
             }
         }
@@ -944,9 +1281,10 @@
         function deleteApplication(appId) {
             if (confirm('Are you sure you want to delete this application?')) {
                 const applications = getApplications();
-                const updatedApps = applications.filter(app => app.id !== appId);
+                const updatedApps = applications.filter((app) => app.id !== appId);
                 saveApplications(updatedApps);
                 loadApplications();
+                loadDashboard();
                 showToast('Application deleted successfully!');
             }
         }
@@ -957,22 +1295,22 @@
             toast.textContent = message;
             toast.className = isError ? 'toast error' : 'toast';
             toast.classList.add('show');
-            
+
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
         }
 
         // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Set up login form
             document.getElementById('login-form').addEventListener('submit', handleLogin);
-            
+
             // Set up job form
             document.getElementById('job-form').addEventListener('submit', saveJob);
-            
+
             // Close modal when clicking outside
-            document.getElementById('job-modal').addEventListener('click', function(e) {
+            document.getElementById('job-modal').addEventListener('click', function (e) {
                 if (e.target === this) {
                     closeJobModal();
                 }
@@ -985,3 +1323,5 @@
     </script>
 </body>
 </html>
+
+                       
