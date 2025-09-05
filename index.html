@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Careers - TechCorp Innovations</title>
+    <title>Careers - Pitti Engineering Limited</title>
     <style>
         /* Global Styles */
         * {
@@ -38,18 +38,19 @@
 
         /* Header Styles - Fixed Navigation */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1rem 0;
+            background-color: rgb(228, 226, 226);        
+            padding: 0.5rem 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
+          
         }
 
         .nav-container {
+            
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -65,7 +66,7 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -76,6 +77,7 @@
         .company-name {
             font-size: 1.5rem;
             font-weight: 700;
+            color: #ef4444;
         }
 
         .nav-links {
@@ -85,7 +87,7 @@
         }
 
         .nav-links a {
-            color: white;
+            color: rgb(0, 0, 0);
             text-decoration: none;
             font-weight: 500;
             transition: opacity 0.3s;
@@ -94,7 +96,7 @@
         }
 
         .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(15, 15, 15, 0.452);
         }
 
         .admin-btn {
@@ -154,10 +156,10 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(37, 99, 235, 0.8)), url('https://placehold.co/1600x900') no-repeat center/cover;
+            background: linear-gradient(rgba(13, 13, 14, 0.411), rgba(9, 10, 12, 0.8)), url("pitti.jpg") no-repeat center/cover;
             color: white;
             text-align: center;
-            padding: 4rem 0;
+            padding:22rem 0rem;
             margin-bottom: 3rem;
         }
 
@@ -657,7 +659,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--success);
+            background: var(--success);  
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 6px;
@@ -700,33 +702,39 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        #nav{
+            background-color: white;    
+        }
     </style>
 </head>
-<body>
+<body id="home">
     <!-- Header -->
-    <header>
+
+        <header>
         <div class="container nav-container">
-            <div class="logo">
-                <div class="logo-icon">TC</div>
-                <div class="company-name">TechCorp Innovations</div>
+            <div class="logo" >
+                <div class="logo-icon" ><img src="logo.png" height="50px"></div>
+                <!-- <div class="company-name">Pitti Engineering Limited</div> -->
             </div>
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
                 &#9776; <!-- Hamburger icon -->
             </button>
             <nav class="nav-links" id="nav-links">
+                <a href="#home">Home</a>
                 <a href="#jobs">Open Positions</a>
                 <a href="#about">About Us</a>
                 <a href="#contact">Contact</a>
                 <a href="admin.html" class="admin-btn">Admin Panel</a>
             </nav>
         </div>
+       
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Join Our Innovative Team</h1>
-            <p>Explore exciting career opportunities and be part of a company that's shaping the future of technology.</p>
+            <h1>Join the Pitti Engineering Team</h1>
+            <p><b>Be part of India’s leading manufacturer of precision-engineered components and power the future of industries worldwide.</b></p>
         </div>
     </section>
 
@@ -768,8 +776,13 @@
                 <h2>About TechCorp Innovations</h2>
                 <p>With a legacy spanning over four decades, we are a trusted leader in the manufacturing of precision-engineered components for rotating electrical equipment. Established in 1983, we began our journey specializing in electrical steel laminations for motors used across a diverse range of electrical applications. Today, we have evolved into a comprehensive solutions provider, offering a wide portfolio that includes.</p>
                 <p>Our unwavering commitment to quality, innovation, and customer satisfaction has positioned us as the market leader in the lamination segment—a critical component in the performance and efficiency of electric motors and generators.</p>
-                <p>Driven by engineering excellence and a deep understanding of industry requirements, we continue to power progress in the electrical manufacturing sector, supporting a wide spectrum of industries worldwide.    </p>
-                <a href="https://www.pitti.in/" class="external-link" target="_blank">Learn More About Our Work</a>
+                <p>Driven by engineering excellence and a deep understanding of industry requirements, we continue to power progress in the electrical manufacturing sector, supporting a wide spectrum of industries worldwide.</p>
+                <p><b>“Join a culture that values collaboration, learning, and innovation every single day.”</b></p>
+                <p>
+
+                    </p>
+                </p><a href="https://www.pitti.in/" class="external-link" target="_blank">Learn More About Our Work</a>
+            
             </div>
         </div>
     </section>
@@ -946,72 +959,60 @@
 
         // DOM Manipulation Functions
         function renderJobs(jobs = null) {
-            const jobsToRender = jobs || getJobs();
-            const jobsContainer = document.getElementById('jobs-container');
-            const noJobsElement = document.getElementById('no-jobs');
-            const noResultsElement = document.getElementById('no-results');
-            const loadingElement = document.querySelector('.loading');
-            
-            loadingElement.style.display = 'none';
-            
-            if (jobsToRender.length === 0) {
-                if (jobs && jobs.length === 0 && document.getElementById('search-input').value) {
-                    noResultsElement.style.display = 'block';
-                    noJobsElement.style.display = 'none';
-                } else {
-                    noJobsElement.style.display = 'block';
-                    noResultsElement.style.display = 'none';
-                }
-                jobsContainer.innerHTML = '';
-                return;
-            }
-            
+    const jobsToRender = jobs !== null ? jobs : getJobs();
+    const jobsContainer = document.getElementById('jobs-container');
+    const noJobsElement = document.getElementById('no-jobs');
+    const noResultsElement = document.getElementById('no-results');
+    const loadingElement = document.querySelector('.loading');
+
+    if (loadingElement) {
+        loadingElement.style.display = 'none';
+    }
+
+    if (jobsToRender.length === 0) {
+        if (jobs && jobs.length === 0 && document.getElementById('search-input').value) {
+            noResultsElement.style.display = 'block';
             noJobsElement.style.display = 'none';
+        } else {
+            noJobsElement.style.display = 'block';
             noResultsElement.style.display = 'none';
-            
-            const jobsHTML = jobsToRender.map(job => {
-                const shouldTruncateDesc = job.description.length > 200;
-                const shouldTruncateReqs = job.requirements.length > 3;
-                
-                return `
-                    <div class="job-card" data-job-id="${job.id}">
-                        <button class="share-btn" onclick="shareJob(${job.id})" title="Share this job">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2">
-                                <circle cx="18" cy="5" r="3"></circle>
-                                <circle cx="6" cy="12" r="3"></circle>
-                                <circle cx="18" cy="19" r="3"></circle>
-                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                            </svg>
-                        </button>
-                        <h3 class="job-title">${job.title}</h3>
-                        <div class="job-location">📍 ${job.location}</div>
-                        <div class="job-department">${job.department}</div>
-                        
-                        <div class="job-description ${shouldTruncateDesc ? '' : 'expanded'}">
-                            ${job.description}
-                            ${shouldTruncateDesc ? `
-                                <button class="show-more-btn" onclick="toggleDescription(this)">Show more</button>
-                            ` : ''}
-                        </div>
-                        
-                        <div class="job-requirements">
-                            <h4 class="requirements-title">Requirements:</h4>
-                            <ul class="requirements-list ${shouldTruncateReqs ? '' : 'expanded'}">
-                                ${job.requirements.map(req => `<li>${req}</li>`).join('')}
-                            </ul>
-                            ${shouldTruncateReqs ? `
-                                <button class="show-more-btn" onclick="toggleRequirements(this)">Show more</button>
-                            ` : ''}
-                        </div>
-                        
-                        <button class="apply-btn" onclick="openApplicationModal(${job.id})">Apply Now</button>
-                    </div>
-                `;
-            }).join('');
-            
-            jobsContainer.innerHTML = jobsHTML;
         }
+        jobsContainer.innerHTML = '';
+        return;
+    }
+
+    noJobsElement.style.display = 'none';
+    noResultsElement.style.display = 'none';
+
+    const jobsHTML = jobsToRender.map(job => {
+        const shouldTruncateDesc = job.description.length > 200;
+        const shouldTruncateReqs = job.requirements.length > 3;
+
+        return `
+            <div class="job-card" data-job-id="${job.id}">
+                <button class="share-btn" onclick="shareJob(${job.id})" title="Share this job">🔗</button>
+                <h3 class="job-title">${job.title}</h3>
+                <div class="job-location">📍 ${job.location}</div>
+                <div class="job-department">${job.department}</div>
+                <div class="job-description ${shouldTruncateDesc ? '' : 'expanded'}">
+                    ${job.description}
+                    ${shouldTruncateDesc ? `<button class="show-more-btn" onclick="toggleDescription(this)">Show more</button>` : ''}
+                </div>
+                <div class="job-requirements">
+                    <h4 class="requirements-title">Requirements:</h4>
+                    <ul class="requirements-list ${shouldTruncateReqs ? '' : 'expanded'}">
+                        ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+                    </ul>
+                    ${shouldTruncateReqs ? `<button class="show-more-btn" onclick="toggleRequirements(this)">Show more</button>` : ''}
+                </div>
+                <button class="apply-btn" onclick="openApplicationModal(${job.id})">Apply Now</button>
+            </div>
+        `;
+    }).join('');
+
+    jobsContainer.innerHTML = jobsHTML;
+}
+
 
         function toggleDescription(button) {
             const description = button.parentElement;
@@ -1163,6 +1164,8 @@
                 navLinks.classList.toggle('active');
             });
         });
+       
+
     </script>
 </body>
 </html>
